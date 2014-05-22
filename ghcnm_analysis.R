@@ -13,11 +13,15 @@ inv.out$Trend50 <- factor(ifelse(inv.out$pval50>0.05,"No Trend",
                                  ifelse(inv.out$dT50>0,"Increasing","Decreasing")))
 inv.out$Trend100 <- factor(ifelse(inv.out$pval100>0.05,"No Trend",
                                   ifelse(inv.out$dT100>0,"Increasing","Decreasing")))
+# Stations by Numbers and Percentage
+# 50-year trend
 print(table(inv.out$Trend50))
+print(table(inv.out$Trend50)/sum(table(inv.out$Trend50)))
+# 100-year trend
 print(table(inv.out$Trend100))
-
-# How has trend changed between past 100 to past 50 years? Check ratio dT50/dT100
-
+print(table(inv.out$Trend100)/sum(table(inv.out$Trend100)))
+# Is the temperature change accelerating? Check if dT50>dT100
+table(inv.out$dT50>inv.out$dT100)
 
 # Plot function
 plot_func <- function(i){
