@@ -1,5 +1,9 @@
 rm(list=ls())
 
+# Downloads minimum, average and maximum monthly temperature data from the NOAA
+# Global Historical Climatology Network and reads the data into R objects for 
+# further analysis. Missing data data ("-9999") are converted to NA.
+
 baseurl <- "ftp://ftp.ncdc.noaa.gov/pub/data/ghcn/v3/"
 for (ttype in c("tavg","tmin","tmax")){
   # Filenames

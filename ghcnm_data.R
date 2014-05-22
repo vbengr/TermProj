@@ -1,7 +1,9 @@
 rm(list=ls())
-# Calculate the annual average temperature change from monthly average, minimum or
-# maximum data over the past 50 (or 100) years at all stations with more than 
-# 50 (or 100) years of data after 1950 (or 1900) and write data to output files.
+# Calculates the annual average temperature anomaly from monthly average, 
+# minimum or maximum data over the past 50 (or 100) years at all stations with 
+# more than 50 (or 100) years of data after 1950 (or 1900), computes 50-year and
+# 100-year trendlines and writes results to output files for further analysis
+# and graphing.
 
 for (ttype in c("tavg","tmin","tmax")){
   fn <- paste0(ttype,"-qca.RData")
