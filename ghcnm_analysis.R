@@ -16,11 +16,14 @@ inv.out$Trend100 <- factor(ifelse(inv.out$pval100>0.05,"No Trend",
 print(table(inv.out$Trend50))
 print(table(inv.out$Trend100))
 
+# How has trend changed between past 100 to past 50 years? Check ratio dT50/dT100
+
+
 # Plot function
 plot_func <- function(i){
   dat1 <- dat.out[dat.out$ID==i,]
   inv1 <- inv.out[inv.out$ID==i,]
-  main.title <- paste("Station ",inv1$ID," Lat = ",inv1$LATITUDE,
+  main.title <- paste0("Station ",inv1$ID," Lat = ",inv1$LATITUDE,
                       " Long = ",inv1$LONGITUDE)
   plot(dat1$YEAR,dat1$AVGTEMP,type="b",main=main.title,
        ylab="Temperature Anomaly, K",xlab="Year",
@@ -39,14 +42,17 @@ plot_func <- function(i){
 
 # Prepare plots for all stations
 # Open graphics output file
-pdf(file=paste0(ttype,"-plots.pdf"))
-par(las=1,cex.axis=1)
-for (i in levels(dat.out$ID)){
-  plot_func(as.character(i))
+lplot <- FALSE
+if (!lplot){
+  pdf(file=paste0(ttype,"-plots.pdf"))
+  par(las=1,cex.axis=1)
+  for (i in levels(dat.out$ID)){
+    plot_func(as.character(i))
+  }
+  dev.off()
 }
-dev.off()
 
-# Prepare metafile plots for selected stations as examples
+# Prepare plots for selected stations as examples
 selID <- grep("BATES CREEK|PORT ELIZ|HARARE",inv.out$NAME)
 png(file="SelPlots.png",width=480,height=960)
 par(mfrow=c(3,1))
@@ -55,6 +61,6 @@ for (i in selID){
 }
 dev.off()
 
-map("world",col="gray")
+map("world",col="darkgray")
 palette(c("blue","red","green"))
-points(inv.out$LONGITUDE,inv.out$LATITUDE,pch=19,col=inv.out$Trend50,cex=0.5)
+points(inv.out$LONGITUDE,inv.out$LATITUDE,col=inv.out$Trend50,cex=0.2)
